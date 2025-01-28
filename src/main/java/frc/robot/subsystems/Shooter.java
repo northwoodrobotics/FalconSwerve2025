@@ -12,20 +12,34 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 
 public class Shooter extends SubsystemBase {
-  private final TalonFX m_Shooter = new TalonFX(ShooterID);
-  private GenericHID xbox; 
-  /** Creates a new Shooter. */
-  public Shooter() {
-    
 
-    m_Shooter.getConfigurator().apply(new TalonFXConfiguration());
+  private final TalonSRX m_shooter = new TalonSRX(ShooterID);
 
-    m_Shooter.setInverted(true);
-    xbox = RobotContainer.codriver.getHID();
-    
+  private final static Shooter INSTANCE = new Shooter();
+
+  public static  Shooter getInstance() {
+      return INSTANCE;
   }
+  private GenericHID xbox;
+  private Shooter() {
+      m_shooter.setInverted(true);
+      m_shooter.setNeutralMode(NeutralMode.Brake);
+      m_shooter.configContinuousCurrentLimit(12);
+      m_shooter.configPeakCurrentLimit(12);
+      xbox = RobotContainer.codriver.getHID();
+  }
+
+
+
+
+   
+  /** Creates a new Shooter. */
+
 
   public Command getIntakeCommand(){
 
@@ -47,14 +61,14 @@ public class Shooter extends SubsystemBase {
     {
       pwr=pwr*0.1;
     }
-    m_Shooter.set(pwr);
+    m_shooter.set(TalonSRXControlMode PercentOutput, double,pwr);
 
   }
 
 
  
   public void stop() {
-    m_Shooter.stopMotor();;
+    m_shooter.stopMotor();;
   }
 
  
