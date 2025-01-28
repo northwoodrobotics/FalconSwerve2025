@@ -17,6 +17,7 @@ public final class Constants {
     public static final double kShooterLaunchSpeed = 1.0;
     public static final double kShooterIntakeSpeed = -0.3;
     public static final int ShooterID = 21;
+    public static final int indexMotorID = 22;
 
     public static final class Swerve {
         public static final int pigeonID = 1;
