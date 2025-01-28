@@ -3,16 +3,13 @@ package frc.robot.subsystems;
 import static frc.robot.Constants.*;
 
 
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.InvertedValue;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj.GenericHID;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 
@@ -26,7 +23,7 @@ public class Shooter extends SubsystemBase {
       return INSTANCE;
   }
   private GenericHID xbox;
-  private Shooter() {
+  public Shooter() {
       m_shooter.setInverted(true);
       m_shooter.setNeutralMode(NeutralMode.Brake);
       m_shooter.configContinuousCurrentLimit(12);
@@ -61,14 +58,14 @@ public class Shooter extends SubsystemBase {
     {
       pwr=pwr*0.1;
     }
-    m_shooter.set(TalonSRXControlMode PercentOutput, double,pwr);
+    m_shooter.set(TalonSRXControlMode.PercentOutput, pwr);
 
   }
 
 
  
   public void stop() {
-    m_shooter.stopMotor();;
+    m_shooter.set(TalonSRXControlMode.PercentOutput, 0);
   }
 
  
