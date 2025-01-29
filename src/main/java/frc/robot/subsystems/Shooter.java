@@ -16,7 +16,7 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 public class Shooter extends SubsystemBase {
 
   private final TalonFX m_shooterMotor = new TalonFX(ShooterID);
- /** Creates a new Tilter. */
+ /** Creates a new Shooter. */
   public Shooter() {
     
 
