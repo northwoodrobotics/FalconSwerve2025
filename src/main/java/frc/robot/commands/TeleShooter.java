@@ -4,17 +4,16 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter;
 
+import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import static frc.robot.Constants.*;
-
-import java.util.function.DoubleSupplier;
 
 
 public class TeleShooter extends Command {
 
       private final Shooter m_shooter;
       private DoubleSupplier pwr;
+
  
 
 
@@ -29,8 +28,8 @@ public class TeleShooter extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void initialize() {
-    m_shooter.launch(pwr.getAsDouble());
+  public void execute() {
+    m_shooter.move(pwr.getAsDouble());
   }
 
   // Returns true when the command should end.
