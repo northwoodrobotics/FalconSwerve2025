@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Tilter extends SubsystemBase {
   private final TalonFX m_tilterMotor = new TalonFX(indexMotorID);
 
-  /** Creates a new Intake. */
+  /** Creates a new Tilter. */
   public Tilter() {
     
 

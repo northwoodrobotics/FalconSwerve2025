@@ -5,9 +5,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -21,7 +22,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
     /* Controllers */
     private final Joystick driver = new Joystick(0);
-    public static final CommandXboxController codriver = new CommandXboxController(0);
+    public static final CommandXboxController codriver = new CommandXboxController(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -52,8 +53,11 @@ public class RobotContainer {
 
         // Configure the button bindings
         configureButtonBindings();
-        codriver.leftBumper().whileTrue(new TeleShooter (m_shooter));
+
+ // Example: Binding left bumper to a command
+
         m_tilter.setDefaultCommand(new TeleTilter(m_tilter, () -> ((codriver.getRawAxis(3) - codriver.getRawAxis(2)))));
+        m_shooter.setDefaultCommand(new TeleShooter(m_shooter, () -> ((codriver.getRawAxis(1) ))));
 
     }
 

@@ -8,6 +8,8 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj2.command.Command;
 import static frc.robot.Constants.*;
 
+import java.util.function.DoubleSupplier;
+
 
 public class TeleShooter extends Command {
 
@@ -16,7 +18,7 @@ public class TeleShooter extends Command {
  
 
 
-  public TeleShooter(Shooter shooter) {
+  public TeleShooter(Shooter shooter, DoubleSupplier pwr) {
 
   
       m_shooter = shooter;
