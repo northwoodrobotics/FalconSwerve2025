@@ -2,7 +2,6 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.*;
 
-import com.ctre.phoenix6.configs.TalonFXConfigurator;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -12,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Shooter extends SubsystemBase {
-  private final TalonFX m_shooterMotor = new TalonFX(indexMotorID);
+  private final TalonFX m_shooterMotor = new TalonFX(ShooterID);
 
   /** Creates a new Tilter. */
   public Shooter() {
