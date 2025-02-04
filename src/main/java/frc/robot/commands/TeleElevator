@@ -1,0 +1,50 @@
+package frc.robot.commands;
+
+import frc.robot.subsystems.Elevator;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj.Joystick;
+
+public class SetMotorSetpointCommand extends CommandBase {
+
+    private final Elevator motorSubsystem;
+    private final Joystick joystick;
+
+    public SetMotorSetpointCommand(Elevator subsystem, Joystick joystick) {
+        this.motorSubsystem = subsystem;
+        this.joystick = joystick;
+        
+        // Declare subsystem dependencies
+        addRequirements(motorSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+        // No initialization logic required for this command
+    }
+
+    @Override
+    public void execute() {
+        // Check joystick button presses to change setpoints
+        if (joystick.getRawButtonPressed(1)) { // Button A
+            motorSubsystem.setSetPoint(Elevator.setPointA);
+        }
+        if (joystick.getRawButtonPressed(2)) { // Button B
+            motorSubsystem.setSetPoint(Elevator.setPointB);
+        }
+        if (joystick.getRawButtonPressed(3)) { // Button X
+            motorSubsystem.setSetPoint(Elevator.setPointX);
+        }
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        // Optionally stop the motor when the command ends
+        motorSubsystem.setSetPoint(0); // This will stop the motor when the command is interrupted
+    }
+
+    @Override
+    public boolean isFinished() {
+        // The command is ongoing since it listens to joystick inputs to change the setpoint
+        return false;
+    }
+}
