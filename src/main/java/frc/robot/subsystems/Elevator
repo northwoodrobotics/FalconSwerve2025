@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
-    private final TalonFX elevatorMotor;  // Using TalonFX motor controller
+    private final TalonFX m_elevatorMotor;  // Using TalonFX motor controller
     private final PIDController pidController;
     private final Joystick joystick;
 
@@ -20,7 +20,7 @@ public class Elevator extends SubsystemBase {
     private double currentSetPoint = setPointA;
 
     public Elevator(Joystick joystick) {
-        elevatorMotor = new TalonFX(1);  // Initialize TalonFX on CAN ID 1, adjust according to your setup
+        m_elevatorMotor = new TalonFX(1);  // Initialize TalonFX on CAN ID 1, adjust according to your setup
         this.joystick = joystick;
 
         // Initialize the PID controller (Proportional, Integral, Derivative constants)
@@ -29,7 +29,7 @@ public class Elevator extends SubsystemBase {
         pidController.setTolerance(10.0);  // Allowable error for the PID controller (can be adjusted)
 
         // Optionally, reset the motor's encoder to a known starting position
-        elevatorMotor.configFactoryDefault();
+        m_elevatorMotor.configFactoryDefault();
     }
 
     @Override
@@ -46,13 +46,13 @@ public class Elevator extends SubsystemBase {
         }
 
         // Get the current motor position from the encoder
-        double currentPosition = elevatorMotor.getSelectedSensorPosition();
+        double currentPosition = m_elevatorMotor.getSelectedSensorPosition();
 
         // Get the PID output based on the current position
         double output = pidController.calculate(currentPosition);
 
         // Apply the PID output to the motor
-        motor.set(ControlMode.PercentOutput, output); // Control motor speed using PID output
+        m_elevatorMotor.set(ControlMode.PercentOutput, output); // Control motor speed using PID output
     }
 
     // Update the current setpoint and reset the PID controller to use the new setpoint
@@ -63,6 +63,6 @@ public class Elevator extends SubsystemBase {
 
     // Optionally, you can add a method to reset the encoder to zero if needed
     public void resetEncoder() {
-        elevatorMotor.setSelectedSensorPosition(0); // Reset encoder position to 0
+        m_elevatorMotor.setSelectedSensorPosition(0); // Reset encoder position to 0
     }
 }
