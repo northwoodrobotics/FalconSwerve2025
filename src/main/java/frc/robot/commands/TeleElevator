@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class SetMotorSetpointCommand extends CommandBase {
 
-    private final Elevator motorSubsystem;
+    private final Elevator elevator;
     private final Joystick joystick;
 
     public SetMotorSetpointCommand(Elevator subsystem, Joystick joystick) {
-        this.motorSubsystem = subsystem;
+        this.elevator = subsystem;
         this.joystick = joystick;
         
         // Declare subsystem dependencies
@@ -26,20 +26,20 @@ public class SetMotorSetpointCommand extends CommandBase {
     public void execute() {
         // Check joystick button presses to change setpoints
         if (joystick.getRawButtonPressed(1)) { // Button A
-            motorSubsystem.setSetPoint(Elevator.setPointA);
+            elevator.setSetPoint(Elevator.setPointA);
         }
         if (joystick.getRawButtonPressed(2)) { // Button B
-            motorSubsystem.setSetPoint(Elevator.setPointB);
+            elevator.setSetPoint(Elevator.setPointB);
         }
         if (joystick.getRawButtonPressed(3)) { // Button X
-            motorSubsystem.setSetPoint(Elevator.setPointX);
+            elevator.setSetPoint(Elevator.setPointX);
         }
     }
 
     @Override
     public void end(boolean interrupted) {
         // Optionally stop the motor when the command ends
-        motorSubsystem.setSetPoint(0); // This will stop the motor when the command is interrupted
+        elevator.setSetPoint(0); // This will stop the motor when the command is interrupted
     }
 
     @Override
