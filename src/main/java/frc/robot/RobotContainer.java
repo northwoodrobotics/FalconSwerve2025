@@ -37,6 +37,7 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
     private final Shooter m_shooter = new Shooter();
     private final Tilter m_tilter = new Tilter();
+    private final Elevator m_elevator = new Elevator(driver);
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */

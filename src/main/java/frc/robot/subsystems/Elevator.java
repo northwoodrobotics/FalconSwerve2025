@@ -1,8 +1,9 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;  // Import TalonFX motor controller
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.ControlMode;  // For controlling the motor
-import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -29,7 +30,7 @@ public class Elevator extends SubsystemBase {
         pidController.setTolerance(10.0);  // Allowable error for the PID controller (can be adjusted)
 
         // Optionally, reset the motor's encoder to a known starting position
-        m_elevatorMotor.configFactoryDefault();
+        m_elevatorMotor.getConfigurator().apply(new TalonFXConfiguration());
     }
 
     @Override
@@ -46,13 +47,13 @@ public class Elevator extends SubsystemBase {
         }
 
         // Get the current motor position from the encoder
-        double currentPosition = m_elevatorMotor.getSelectedSensorPosition();
+        double currentPosition = m_elevatorMotor.getPosition().getValueAsDouble();
 
         // Get the PID output based on the current position
         double output = pidController.calculate(currentPosition);
 
         // Apply the PID output to the motor
-        m_elevatorMotor.set(ControlMode.PercentOutput, output); // Control motor speed using PID output
+        m_elevatorMotor.set(output); // Control motor speed using PID output
     }
 
     // Update the current setpoint and reset the PID controller to use the new setpoint
@@ -63,6 +64,6 @@ public class Elevator extends SubsystemBase {
 
     // Optionally, you can add a method to reset the encoder to zero if needed
     public void resetEncoder() {
-        m_elevatorMotor.setSelectedSensorPosition(0); // Reset encoder position to 0
+        m_elevatorMotor.setPosition(0); // Reset encoder position to 0
     }
 }
