@@ -6,22 +6,25 @@ import com.ctre.phoenix.motorcontrol.ControlMode;  // For controlling the motor
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+import static frc.robot.Constants.*;
 
 public class Elevator extends SubsystemBase {
     private final TalonFX m_elevatorMotor;  // Using TalonFX motor controller
     private final PIDController pidController;
-    private final Joystick joystick;
+    private final CommandXboxController joystick;
 
     // Setpoints for the PID controller
-    private final double setPointA = 1000.0;  // Example setpoint 1
-    private final double setPointB = 2000.0;  // Example setpoint 2
-    private final double setPointX = 3000.0;  // Example setpoint 3
+    public static double setPointA = 1000.0;  // Example setpoint 1
+    public static double setPointB = 2000.0;  // Example setpoint 2
+    public static double setPointX = 3000.0;  // Example setpoint 3
 
     // Current setpoint
     private double currentSetPoint = setPointA;
 
-    public Elevator(Joystick joystick) {
-        m_elevatorMotor = new TalonFX(1);  // Initialize TalonFX on CAN ID 1, adjust according to your setup
+    public Elevator(CommandXboxController joystick) {
+        m_elevatorMotor = new TalonFX(elevatorMotorID);  // Initialize TalonFX on CAN ID 1, adjust according to your setup
         this.joystick = joystick;
 
         // Initialize the PID controller (Proportional, Integral, Derivative constants)
@@ -36,13 +39,13 @@ public class Elevator extends SubsystemBase {
     @Override
     public void periodic() {
         // Read joystick button states to switch between setpoints
-        if (joystick.getRawButtonPressed(1)) { // Button A
+        if (joystick.a().getAsBoolean()) { // Button A
             setSetPoint(setPointA);
         }
-        if (joystick.getRawButtonPressed(2)) { // Button B
+        if (joystick.b().getAsBoolean()) { // Button B
             setSetPoint(setPointB);
         }
-        if (joystick.getRawButtonPressed(3)) { // Button X
+        if (joystick.x().getAsBoolean()) { // Button X
             setSetPoint(setPointX);
         }
 
@@ -57,7 +60,7 @@ public class Elevator extends SubsystemBase {
     }
 
     // Update the current setpoint and reset the PID controller to use the new setpoint
-    private void setSetPoint(double setPoint) {
+    public void setSetPoint(double setPoint) {
         currentSetPoint = setPoint;
         pidController.setSetpoint(setPoint);
     }
