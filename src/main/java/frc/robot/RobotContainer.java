@@ -35,8 +35,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final Shooter m_shooter = new Shooter();
-    private final Tilter m_tilter = new Tilter();
+
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,10 +53,8 @@ public class RobotContainer {
         // Configure the button bindings
         configureButtonBindings();
 
- // Example: Binding left bumper to a command
 
-        m_tilter.setDefaultCommand(new TeleTilter(m_tilter, () -> ((codriver.getRawAxis(3) - codriver.getRawAxis(2)))));
-        m_shooter.setDefaultCommand(new TeleShooter(m_shooter, () -> ((codriver.getRawAxis(1)))));
+
 
     }
 
