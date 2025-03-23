@@ -35,7 +35,7 @@ public class RobotContainer {
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-
+    private final CANRollerSubsystem rollerSubsystem = new CANRollerSubsystem();
 
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -52,7 +52,10 @@ public class RobotContainer {
 
         // Configure the button bindings
         configureButtonBindings();
-
+    // Run the roller forward when A is pressed, stop when released
+    codriver.a()
+        .whileTrue(Commands.run(() -> rollerSubsystem.runRoller(rollerSubsystem, () -> 1.0, () -> 0.0)
+            .schedule(), rollerSubsystem));
 
 
 
